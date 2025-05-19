@@ -227,7 +227,7 @@ fun CameraPreview(viewModel: BarCodeScannerViewModel) {
 
                         Spacer(modifier = Modifier.height(16.dp))
                         Button(onClick = { viewModel.resetState() }) {
-                            Text("Scan Another")
+                            Text("Scannez autre")
                         }
                     }
                 }
@@ -275,7 +275,7 @@ fun ScanResultContent(scanSuccess: BarScanState.ScanSuccess, onRescan: () -> Uni
 
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = onRescan) {
-            Text("Scan Another")
+            Text("Scannez autre")
         }
     }
 }
