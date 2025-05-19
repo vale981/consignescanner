@@ -8,6 +8,7 @@ sealed interface BarScanState {
     data class ScanSuccess(
         val container: Containers
     ) : BarScanState
+    data object NoRefund : BarScanState
     data class Error(val error: String) : BarScanState
     data object Loading : BarScanState
 }

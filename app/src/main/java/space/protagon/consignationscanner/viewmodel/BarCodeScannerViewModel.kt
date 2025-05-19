@@ -84,7 +84,7 @@ class BarCodeScannerViewModel(application: Application) : AndroidViewModel(appli
                               container = container
                             )
                         else
-                            _barScanState = BarScanState.Error("Pas de consigne")
+                            _barScanState = BarScanState.NoRefund
 
                     } catch (e: Exception) {
                         Log.e("BarCodeScanner", "Error processing barcode", e)

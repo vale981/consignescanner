@@ -40,11 +40,22 @@ import android.Manifest
 import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.AssistChip
+import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import androidx.room.Room
-
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun BarcodeScannerScreen(
@@ -100,7 +111,7 @@ fun CameraPreview(viewModel: BarCodeScannerViewModel) {
 
     // Effect to unbind camera use cases when scan is successful
     LaunchedEffect(barScanState) {
-        if (barScanState is BarScanState.ScanSuccess) {
+        if (barScanState is BarScanState.ScanSuccess || barScanState is BarScanState.NoRefund) {
             cameraProvider?.unbindAll()
         }
     }
@@ -111,7 +122,7 @@ fun CameraPreview(viewModel: BarCodeScannerViewModel) {
                 .size(400.dp)
                 .padding(16.dp)
         ) {
-            if (barScanState !is BarScanState.ScanSuccess) {
+            if (barScanState !is BarScanState.ScanSuccess && barScanState !is BarScanState.NoRefund) {
                 AndroidView(
                     factory = { androidViewContext ->
                         PreviewView(androidViewContext).apply {
@@ -193,6 +204,31 @@ fun CameraPreview(viewModel: BarCodeScannerViewModel) {
                 }
             }
 
+            is BarScanState.NoRefund -> {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    AssistChip(
+                        label = { Text("Pas de remboursement.") },
+                        onClick = {},
+                        leadingIcon = {
+                            Icon(
+                                Icons.Filled.Close,
+                                "Pas de remboursement",
+                                Modifier.size(AssistChipDefaults.IconSize)
+                            )
+                        }
+                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Button(onClick = { viewModel.resetState() }) {
+                        Text("Réessayer")
+                    }
+                }
+            }
+
             is BarScanState.ScanSuccess -> {
                 // Regular barcode result
                 Column(
@@ -200,15 +236,44 @@ fun CameraPreview(viewModel: BarCodeScannerViewModel) {
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
+                    AssistChip(
+                        label = { Text("Remboursable") },
+                        onClick = {},
+                        leadingIcon = {
+                            Icon(
+                                Icons.Filled.CheckCircle,
+                                "Remboursable",
+                                Modifier.size(AssistChipDefaults.IconSize)
+                            )
+                        }
+                    )
                     val container = barScanState.container;
-                    Text(container.name.toString(), fontWeight = FontWeight.Bold)
                     Spacer(modifier = Modifier.height(8.dp))
-                    Text(container.material.toString())
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text("Consigne: ${container.refund.toString()}$")
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(container.modificationDate.toString())
-                    Spacer(modifier = Modifier.height(16.dp))
+
+                    Card(
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                        ),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                    ) {
+
+                        Text(
+                            text = container.name.toString(),
+                            style = MaterialTheme.typography.headlineMedium,
+                            modifier = Modifier.padding(8.dp),
+                        )
+
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text("""
+                            • ${container.material.toString()}
+                            • Valeur: ${container.refund.toString()}$
+                            • Dernière modification: ${container.modificationDate.toString()}
+                        """.trimIndent(),
+                            style = MaterialTheme.typography.bodyMedium,
+                            modifier = Modifier.padding(8.dp))
+                    }
                     Button(onClick = { viewModel.resetState() }) {
                         Text("Scannez autre")
                     }
