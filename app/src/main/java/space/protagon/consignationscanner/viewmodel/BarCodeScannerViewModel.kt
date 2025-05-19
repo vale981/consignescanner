@@ -6,7 +6,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import space.protagon.consignationscanner.model.BarModel
 import space.protagon.consignationscanner.BarScanState
 import com.google.mlkit.vision.barcode.common.Barcode
 import kotlinx.coroutines.launch
@@ -34,17 +33,10 @@ class BarCodeScannerViewModel : ViewModel() {
             barcodes.forEach { barcode ->
                 barcode.rawValue?.let { barcodeValue ->
                     try {
-                        // Try parsing as JSON first
-                        try {
-                            val barModel: BarModel = jsonParser.decodeFromString(barcodeValue)
-                            _barScanState = BarScanState.ScanSuccess(barStateModel = barModel)
-                        } catch (e: Exception) {
-                            // If not JSON, return raw value with format
                             _barScanState = BarScanState.ScanSuccess(
                                 rawValue = barcodeValue,
                                 format = getBarcodeFormatName(barcode.format)
                             )
-                        }
                     } catch (e: Exception) {
                         Log.e("BarCodeScanner", "Error processing barcode", e)
                         _barScanState = BarScanState.Error("Error processing barcode: ${e.message}")

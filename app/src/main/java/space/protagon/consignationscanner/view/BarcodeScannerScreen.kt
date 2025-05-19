@@ -197,9 +197,6 @@ fun CameraPreview(viewModel: BarCodeScannerViewModel) {
                 }
             }
             is BarScanState.ScanSuccess -> {
-                if (barScanState.barStateModel != null) {
-                    viewModel.resetState()
-                } else {
                     // Regular barcode result
                     Column(
                         modifier = Modifier.fillMaxSize(),
@@ -230,7 +227,6 @@ fun CameraPreview(viewModel: BarCodeScannerViewModel) {
                             Text("Scannez autre")
                         }
                     }
-                }
             }
             is BarScanState.Error -> {
                 Column(
@@ -245,37 +241,6 @@ fun CameraPreview(viewModel: BarCodeScannerViewModel) {
                     }
                 }
             }
-        }
-    }
-}
-
-@Composable
-fun ScanResultContent(scanSuccess: BarScanState.ScanSuccess, onRescan: () -> Unit) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        if (scanSuccess.barStateModel != null) {
-            // Display JSON content
-            Text("Invoice Id: ${scanSuccess.barStateModel.invoiceNumber}")
-            Text("Name: ${scanSuccess.barStateModel.client.name}")
-            Spacer(modifier = Modifier.height(8.dp))
-            Text("Purchases:", style = MaterialTheme.typography.titleMedium)
-            scanSuccess.barStateModel.purchase.forEach { item ->
-                Text("${item.item}: ${item.quantity} x $${item.price}")
-            }
-            Text("Total Amount: $${scanSuccess.barStateModel.totalAmount}")
-        } else {
-            // Display raw barcode content
-            Text("Format: ${scanSuccess.format}", style = MaterialTheme.typography.titleMedium)
-            Spacer(modifier = Modifier.height(8.dp))
-            Text("Value: ${scanSuccess.rawValue}")
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-        Button(onClick = onRescan) {
-            Text("Scannez autre")
         }
     }
 }
