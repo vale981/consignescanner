@@ -1,24 +1,69 @@
 package space.protagon.consignationscanner.viewmodel
 
+import android.app.Application
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.room.ColumnInfo
+import androidx.room.Dao
+import androidx.room.Database
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.Query
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import space.protagon.consignationscanner.BarScanState
 import com.google.mlkit.vision.barcode.common.Barcode
 import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
-class BarCodeScannerViewModel : ViewModel() {
+@Entity
+data class Containers(
+    @ColumnInfo(name="Producteur") val producer: String?,
+    @ColumnInfo(name="Nom du produit") val name: String?,
+    @ColumnInfo(name="Consigne") val refund: String,
+    @ColumnInfo(name="Volume") val volume: String?,
+    @ColumnInfo(name="Classification") val classification: String?,
+    @ColumnInfo(name="Remplissage") val filling: String?,
+    @ColumnInfo(name="Matériel") val material: String?,
+    @PrimaryKey @ColumnInfo(name="Code Barre") val barcode: String,
+    @ColumnInfo(name="Date de modification") val modificationDate: String?,
+)
+
+@Dao
+interface ContainerDao {
+    @Query("SELECT * FROM containers where `Code Barre` = :barcode LIMIT 1")
+    fun fromBarcode(barcode: String): Containers?;
+}
+
+@Database(entities = [Containers::class], version = 1)
+abstract class ContainerDatabase : RoomDatabase() {
+    abstract fun containerDao(): ContainerDao
+}
+
+
+class BarCodeScannerViewModel(application: Application) : AndroidViewModel(application) {
     private val jsonParser = Json {
         ignoreUnknownKeys = true
         isLenient = true
     }
 
     private var _barScanState by mutableStateOf<BarScanState>(BarScanState.Ideal)
+    private val context = application.applicationContext
+    private val database = Room.databaseBuilder(context, ContainerDatabase::class.java,
+        "consigne_${context.packageManager.getPackageInfo(context.packageName, 0).versionName}}.db")
+        .allowMainThreadQueries()
+        .fallbackToDestructiveMigration(true)
+        .createFromAsset("consignation.db")
+        .build()
+
+    private val containerDao = database.containerDao()
+
     val barScanState: BarScanState get() = _barScanState
 
     fun onBarCodeDetected(barcodes: List<Barcode>) {
@@ -33,13 +78,17 @@ class BarCodeScannerViewModel : ViewModel() {
             barcodes.forEach { barcode ->
                 barcode.rawValue?.let { barcodeValue ->
                     try {
+                        val container = containerDao.fromBarcode(barcodeValue)
+                        if (container != null)
                             _barScanState = BarScanState.ScanSuccess(
-                                rawValue = barcodeValue,
-                                format = getBarcodeFormatName(barcode.format)
+                              container = container
                             )
+                        else
+                            _barScanState = BarScanState.Error("Pas de consigne")
+
                     } catch (e: Exception) {
                         Log.e("BarCodeScanner", "Error processing barcode", e)
-                        _barScanState = BarScanState.Error("Error processing barcode: ${e.message}")
+                        _barScanState = BarScanState.Error("Erreur: ${e.message}")
                     }
                     return@launch
                 }

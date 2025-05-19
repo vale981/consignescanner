@@ -44,7 +44,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.room.Room
-import space.protagon.consignationscanner.view.ContainerDatabase
 
 
 @Composable
@@ -97,11 +96,7 @@ fun CameraPreview(viewModel: BarCodeScannerViewModel) {
     var preview by remember { mutableStateOf<Preview?>(null) }
     var cameraProvider by remember { mutableStateOf<ProcessCameraProvider?>(null) }
     val barScanState = viewModel.barScanState
-    val database = Room.databaseBuilder(context, ContainerDatabase::class.java, "new4.db")
-        .allowMainThreadQueries()
-        .fallbackToDestructiveMigration(true)
-        .createFromAsset("consignation.db")
-        .build()
+
 
     // Effect to unbind camera use cases when scan is successful
     LaunchedEffect(barScanState) {
@@ -185,6 +180,7 @@ fun CameraPreview(viewModel: BarCodeScannerViewModel) {
                     Text("Positionnez le code barre devant la camaera.")
                 }
             }
+
             is BarScanState.Loading -> {
                 Column(
                     modifier = Modifier.fillMaxSize(),
@@ -196,38 +192,29 @@ fun CameraPreview(viewModel: BarCodeScannerViewModel) {
                     Text("Scanne...")
                 }
             }
+
             is BarScanState.ScanSuccess -> {
-                    // Regular barcode result
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
-                    ) {
-
-                        val code = barScanState.rawValue;
-
-                        val container = if (code != null) {
-                            database.containerDao().fromBarcode(code)
-                        } else null;
-
-                        if (container != null) {
-                            Text(container.name.toString(), fontWeight = FontWeight.Bold)
-                            Spacer(modifier = Modifier.height(8.dp))
-                            Text(container.material.toString())
-                            Spacer(modifier = Modifier.height(8.dp))
-                            Text("Consigne: ${container.refund.toString()}$")
-                            Spacer(modifier = Modifier.height(8.dp))
-                            Text(container.modificationDate.toString())
-                        } else {
-                            Text("Aucun resultat :(")
-                        }
-
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Button(onClick = { viewModel.resetState() }) {
-                            Text("Scannez autre")
-                        }
+                // Regular barcode result
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    val container = barScanState.container;
+                    Text(container.name.toString(), fontWeight = FontWeight.Bold)
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(container.material.toString())
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text("Consigne: ${container.refund.toString()}$")
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(container.modificationDate.toString())
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Button(onClick = { viewModel.resetState() }) {
+                        Text("Scannez autre")
                     }
+                }
             }
+
             is BarScanState.Error -> {
                 Column(
                     modifier = Modifier.fillMaxSize(),

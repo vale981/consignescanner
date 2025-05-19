@@ -10,34 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import androidx.room.*
 import space.protagon.consignationscanner.ui.theme.BarCodeScannerTheme
 import space.protagon.consignationscanner.viewmodel.BarCodeScannerViewModel
-
-@Entity
-data class Containers(
-    @ColumnInfo(name="Producteur") val producer: String?,
-    @ColumnInfo(name="Nom du produit") val name: String?,
-    @ColumnInfo(name="Consigne") val refund: String,
-    @ColumnInfo(name="Volume") val volume: String?,
-    @ColumnInfo(name="Classification") val classification: String?,
-    @ColumnInfo(name="Remplissage") val filling: String?,
-    @ColumnInfo(name="Matériel") val material: String?,
-    @PrimaryKey @ColumnInfo(name="Code Barre") val barcode: String,
-    @ColumnInfo(name="Date de modification") val modificationDate: String?,
-)
-
-@Dao
-interface ContainerDao {
-    @Query("SELECT * FROM containers where `Code Barre` = :barcode LIMIT 1")
-    fun fromBarcode(barcode: String): Containers?;
-}
-
-@Database(entities = [Containers::class], version = 1)
-abstract class ContainerDatabase : RoomDatabase() {
-    abstract fun containerDao(): ContainerDao
-}
-
 
 class MainActivity : ComponentActivity() {
     private val viewModel: BarCodeScannerViewModel by viewModels()

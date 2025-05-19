@@ -1,11 +1,12 @@
 package space.protagon.consignationscanner
 
+import space.protagon.consignationscanner.viewmodel.Containers
+
 
 sealed interface BarScanState {
     data object Ideal : BarScanState
     data class ScanSuccess(
-        val rawValue: String? = null,
-        val format: String? = null
+        val container: Containers
     ) : BarScanState
     data class Error(val error: String) : BarScanState
     data object Loading : BarScanState
