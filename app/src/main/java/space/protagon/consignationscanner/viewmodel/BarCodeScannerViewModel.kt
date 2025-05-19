@@ -1,4 +1,4 @@
-package com.codegalaxy.barcodescanner.viewmodel
+package space.protagon.consignationscanner.viewmodel
 
 import android.util.Log
 import androidx.compose.runtime.getValue
@@ -6,8 +6,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.codegalaxy.barcodescanner.model.BarModel
-import com.codegalaxy.barcodescanner.BarScanState
+import space.protagon.consignationscanner.model.BarModel
+import space.protagon.consignationscanner.BarScanState
 import com.google.mlkit.vision.barcode.common.Barcode
 import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString

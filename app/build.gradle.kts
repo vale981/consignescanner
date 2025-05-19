@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.codegalaxy.barcodescanner"
+    namespace = "space.protagon.consignationscanner"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.codegalaxy.barcodescanner"
+        applicationId = "space.protagon.consignationscanner"
         minSdk = 26
         targetSdk = 34
         versionCode = 1

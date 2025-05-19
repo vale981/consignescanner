@@ -1,10 +1,10 @@
-package com.codegalaxy.barcodescanner.model
+package space.protagon.consignationscanner.model
 
 import android.annotation.SuppressLint
 import android.util.Log
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
-import com.codegalaxy.barcodescanner.viewmodel.BarCodeScannerViewModel
+import space.protagon.consignationscanner.viewmodel.BarCodeScannerViewModel
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode

@@ -1,4 +1,4 @@
-package com.codegalaxy.barcodescanner.view
+package space.protagon.consignationscanner.view
 
 import BarcodeScannerScreen
 import android.os.Bundle
@@ -11,8 +11,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.room.*
-import com.codegalaxy.barcodescanner.ui.theme.BarCodeScannerTheme
-import com.codegalaxy.barcodescanner.viewmodel.BarCodeScannerViewModel
+import space.protagon.consignationscanner.ui.theme.BarCodeScannerTheme
+import space.protagon.consignationscanner.viewmodel.BarCodeScannerViewModel
 
 @Entity
 data class Containers(

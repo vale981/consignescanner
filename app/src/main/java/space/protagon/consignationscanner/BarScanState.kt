@@ -1,6 +1,6 @@
-package com.codegalaxy.barcodescanner
+package space.protagon.consignationscanner
 
-import com.codegalaxy.barcodescanner.model.BarModel
+import space.protagon.consignationscanner.model.BarModel
 
 sealed interface BarScanState {
     data object Ideal : BarScanState

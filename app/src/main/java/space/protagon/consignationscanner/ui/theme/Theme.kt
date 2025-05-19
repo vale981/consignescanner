@@ -1,4 +1,4 @@
-package com.codegalaxy.barcodescanner.ui.theme
+package space.protagon.consignationscanner.ui.theme
 
 import android.app.Activity
 import android.os.Build

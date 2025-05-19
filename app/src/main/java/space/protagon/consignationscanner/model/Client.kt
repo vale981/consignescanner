@@ -1,4 +1,4 @@
-package com.codegalaxy.barcodescanner.model
+package space.protagon.consignationscanner.model
 
 import kotlinx.serialization.Serializable
 
