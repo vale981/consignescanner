@@ -11,5 +11,5 @@ Under the hood, the app uses the official database from
 The app is based on https://github.com/myofficework000/QRCodeScanner/.
 
 ## Screenshots
-![Successful scan](assets/success.png "Success")
-![Unsuccessful scan](assets/nothing.png "Nothing")
+<img src="assets/success.png" alt="Success" width="200"/>
+<img src="assets/nothing.png" alt="Failure" width="200"/>
