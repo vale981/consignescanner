@@ -51,11 +51,13 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.compose.ui.unit.sp
+import space.protagon.consignationscanner.R
 
 @Composable
 fun BarcodeScannerScreen(
@@ -91,9 +93,9 @@ fun BarcodeScannerScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text("Camera permission is required for scanning barcodes")
+            Text(stringResource(R.string.permissionRequired))
             Button(onClick = { launcher.launch(android.Manifest.permission.CAMERA) }) {
-                Text("Grant Permission")
+                Text(stringResource(R.string.grandPermission))
             }
         }
     }
@@ -188,7 +190,7 @@ fun CameraPreview(viewModel: BarCodeScannerViewModel) {
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    Text("Positionnez le code barre devant la camaera.")
+                    Text(stringResource(R.string.positioning))
                 }
             }
 
@@ -200,7 +202,7 @@ fun CameraPreview(viewModel: BarCodeScannerViewModel) {
                 ) {
                     CircularProgressIndicator()
                     Spacer(modifier = Modifier.height(16.dp))
-                    Text("Scanne...")
+                    Text(stringResource(R.string.scanning))
                 }
             }
 
@@ -211,12 +213,12 @@ fun CameraPreview(viewModel: BarCodeScannerViewModel) {
                     verticalArrangement = Arrangement.Center
                 ) {
                     AssistChip(
-                        label = { Text("Pas de remboursement.") },
+                        label = { Text( stringResource(R.string.nonrefundable)) },
                         onClick = {},
                         leadingIcon = {
                             Icon(
                                 Icons.Filled.Close,
-                                "Pas de remboursement",
+                                stringResource(R.string.nonrefundable),
                                 Modifier.size(AssistChipDefaults.IconSize)
                             )
                         }
@@ -224,7 +226,7 @@ fun CameraPreview(viewModel: BarCodeScannerViewModel) {
 
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(onClick = { viewModel.resetState() }) {
-                        Text("Réessayer")
+                        Text( stringResource(R.string.retrythis))
                     }
                 }
             }
@@ -237,12 +239,12 @@ fun CameraPreview(viewModel: BarCodeScannerViewModel) {
                     verticalArrangement = Arrangement.Center
                 ) {
                     AssistChip(
-                        label = { Text("Remboursable") },
+                        label = { Text( stringResource(R.string.refundable)) },
                         onClick = {},
                         leadingIcon = {
                             Icon(
                                 Icons.Filled.CheckCircle,
-                                "Remboursable",
+                                stringResource(R.string.refundable),
                                 Modifier.size(AssistChipDefaults.IconSize)
                             )
                         }
@@ -268,14 +270,14 @@ fun CameraPreview(viewModel: BarCodeScannerViewModel) {
                         Spacer(modifier = Modifier.height(8.dp))
                         Text("""
                             • ${container.material.toString()}
-                            • Valeur: ${container.refund.toString()}$
-                            • Dernière modification: ${container.modificationDate.toString()}
+                            • ${stringResource(R.string.value)}: ${container.refund.toString()}$
+                            • ${stringResource(R.string.lasteModification)}: ${container.modificationDate.toString()}
                         """.trimIndent(),
                             style = MaterialTheme.typography.bodyMedium,
                             modifier = Modifier.padding(8.dp))
                     }
                     Button(onClick = { viewModel.resetState() }) {
-                        Text("Scannez autre")
+                        Text(stringResource(R.string.scanOther))
                     }
                 }
             }
@@ -289,7 +291,7 @@ fun CameraPreview(viewModel: BarCodeScannerViewModel) {
                     Text("Error: ${barScanState.error}")
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(onClick = { viewModel.resetState() }) {
-                        Text("Réessayer")
+                        Text(stringResource(R.string.retrythis))
                     }
                 }
             }

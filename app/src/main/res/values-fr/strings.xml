@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Scanneur Consignation Quebec</string>
+    <string name="retrythis">Réessayer</string>
+    <string name="value">Valeur</string>
+    <string name="lasteModification">Dernière modification</string>
+    <string name="scanOther">Scannez autre</string>
+    <string name="refundable">Remboursable</string>
+    <string name="nonrefundable">Pas de remboursement</string>
+    <string name="scanning">Scanning</string>
+    <string name="positioning">Positionnez le code barre devant la camaera.</string>
+    <string name="grandPermission">Accorder la permission</string>
+    <string name="permissionRequired">La permission de l\'appareil photo est requise pour scanner les codes-barres.</string>
+</resources>

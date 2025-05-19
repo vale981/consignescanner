@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Consignation Quebec Scanner</string>
+    <string name="retrythis">Retry</string>
+    <string name="scanOther">Scan Another</string>
+    <string name="value">Value</string>
+    <string name="lasteModification">Last modification</string>
+    <string name="refundable">Refundable</string>
+    <string name="nonrefundable">Nonrefundable</string>
+    <string name="scanning">Scanning</string>
+    <string name="positioning">Position the bar code in front of the camera.</string>
+    <string name="permissionRequired">Camera permission is required for scanning barcodes</string>
+    <string name="grandPermission">Grant Permission</string>
 </resources>
