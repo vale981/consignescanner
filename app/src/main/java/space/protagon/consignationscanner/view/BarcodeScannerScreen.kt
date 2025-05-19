@@ -124,7 +124,6 @@ fun CameraPreview(viewModel: BarCodeScannerViewModel) {
                 .size(400.dp)
                 .padding(16.dp)
         ) {
-            if (barScanState !is BarScanState.ScanSuccess && barScanState !is BarScanState.NoRefund) {
                 AndroidView(
                     factory = { androidViewContext ->
                         PreviewView(androidViewContext).apply {
@@ -145,7 +144,8 @@ fun CameraPreview(viewModel: BarCodeScannerViewModel) {
                         val cameraProviderFuture: ListenableFuture<ProcessCameraProvider> =
                             ProcessCameraProvider.getInstance(context)
 
-                        cameraProviderFuture.addListener({
+                        if (barScanState !is BarScanState.ScanSuccess && barScanState !is BarScanState.NoRefund) {
+                            cameraProviderFuture.addListener({
                             preview = Preview.Builder().build().also {
                                 it.setSurfaceProvider(previewView.surfaceProvider)
                             }
@@ -179,9 +179,11 @@ fun CameraPreview(viewModel: BarCodeScannerViewModel) {
                             })
                         }, ContextCompat.getMainExecutor(context))
                     }
+                    }
                 )
             }
-        }
+
+        Spacer(modifier = Modifier.height(35.dp))
 
         when (barScanState) {
             is BarScanState.Ideal -> {
@@ -201,7 +203,7 @@ fun CameraPreview(viewModel: BarCodeScannerViewModel) {
                     verticalArrangement = Arrangement.Center
                 ) {
                     CircularProgressIndicator()
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
                     Text(stringResource(R.string.scanning))
                 }
             }
@@ -224,7 +226,6 @@ fun CameraPreview(viewModel: BarCodeScannerViewModel) {
                         }
                     )
 
-                    Spacer(modifier = Modifier.height(16.dp))
                     Button(onClick = { viewModel.resetState() }) {
                         Text( stringResource(R.string.retrythis))
                     }
@@ -250,7 +251,6 @@ fun CameraPreview(viewModel: BarCodeScannerViewModel) {
                         }
                     )
                     val container = barScanState.container;
-                    Spacer(modifier = Modifier.height(8.dp))
 
                     Card(
                         colors = CardDefaults.cardColors(
