@@ -11,4 +11,6 @@
     <string name="positioning">Positionnez le code barre devant la camaera.</string>
     <string name="grandPermission">Accorder la permission</string>
     <string name="permissionRequired">La permission de l\'appareil photo est requise pour scanner les codes-barres.</string>
+    <string name="info">info</string>
+    <string name="go_back">Go Back</string>
 </resources>

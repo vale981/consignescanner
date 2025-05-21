@@ -1,4 +1,4 @@
-package space.protagon.consignactionscanner.view
+package space.protagon.consignationscanner.view
 
 import BarcodeScannerScreen
 import android.os.Bundle
@@ -12,8 +12,8 @@ import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import space.protagon.consignactionscanner.ui.theme.BarCodeScannerTheme
-import space.protagon.consignactionscanner.viewmodel.BarCodeScannerViewModel
+import space.protagon.consignationscanner.ui.theme.BarCodeScannerTheme
+import space.protagon.consignationscanner.viewmodel.BarCodeScannerViewModel
 
 class MainActivity : ComponentActivity() {
     private val viewModel: BarCodeScannerViewModel by viewModels()

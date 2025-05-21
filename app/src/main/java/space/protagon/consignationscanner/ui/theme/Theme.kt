@@ -1,4 +1,4 @@
-package space.protagon.consignactionscanner.ui.theme
+package space.protagon.consignationscanner.ui.theme
 
 import android.app.Activity
 import android.os.Build

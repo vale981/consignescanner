@@ -1,10 +1,10 @@
-package space.protagon.consignactionscanner.model
+package space.protagon.consignationscanner.model
 
 import android.annotation.SuppressLint
 import android.util.Log
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
-import space.protagon.consignactionscanner.viewmodel.BarCodeScannerViewModel
+import space.protagon.consignationscanner.viewmodel.BarCodeScannerViewModel
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode
@@ -44,7 +44,6 @@ class BarCodeAnalyzer(private val viewModel: BarCodeScannerViewModel) : ImageAna
 
             scanner.process(image)
                 .addOnSuccessListener { barcodes ->
-                    Log.d("BarCodeAnalyzer", "Number of barcodes detected: ${barcodes.size}")
                     viewModel.onBarCodeDetected(barcodes)
                 }
                 .addOnFailureListener { exception ->

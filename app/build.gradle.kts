@@ -4,18 +4,19 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     id("com.google.devtools.ksp")
+    id("com.mikepenz.aboutlibraries.plugin") version "12.1.2"
 }
 
 android {
-    namespace = "space.protagon.consignactionscanner"
+    namespace = "space.protagon.consignationscanner"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "space.protagon.consignactionscanner"
+        applicationId = "space.protagon.consignationscanner"
         minSdk = 26
-        targetSdk = 34
-        versionCode = 2
-        versionName = "1.0.1"
+        targetSdk = 35
+        versionCode = 4
+        versionName = "1.0.2"
     }
 
     buildTypes {
@@ -25,6 +26,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -79,4 +81,10 @@ dependencies {
     // If this project uses any Kotlin source, use Kotlin Symbol Processing (KSP)
     // See Add the KSP plugin to your project
     ksp("androidx.room:room-compiler:$room_version")
+
+
+    implementation("com.google.android.gms:play-services-oss-licenses:17.1.0")
+    implementation("com.halilibo.compose-richtext:richtext-commonmark:0.11.0")
+    implementation(libs.aboutlibraries.core)
+    implementation(libs.aboutlibraries.compose.m3)
 }

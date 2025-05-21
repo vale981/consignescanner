@@ -15,3 +15,6 @@
 local.properties
 /.idea
 /.direnv
+/app/build
+/app/release
+/.kotlin

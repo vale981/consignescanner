@@ -1,4 +1,4 @@
-package space.protagon.consignactionscanner.viewmodel
+package space.protagon.consignationscanner.viewmodel
 
 import android.app.Application
 import android.util.Log
@@ -16,7 +16,7 @@ import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import space.protagon.consignactionscanner.BarScanState
+import space.protagon.consignationscanner.BarScanState
 import com.google.mlkit.vision.barcode.common.Barcode
 import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString

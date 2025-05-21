@@ -10,4 +10,6 @@
     <string name="positioning">Position the bar code in front of the camera.</string>
     <string name="permissionRequired">Camera permission is required for scanning barcodes</string>
     <string name="grandPermission">Grant Permission</string>
+    <string name="info">Information about the app.</string>
+    <string name="go_back">Go Back</string>
 </resources>
