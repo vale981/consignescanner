@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "space.protagon.consignationscanner"
+    namespace = "space.protagon.consignactionscanner"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "space.protagon.consignationscanner"
+        applicationId = "space.protagon.consignactionscanner"
         minSdk = 26
         targetSdk = 34
         versionCode = 2

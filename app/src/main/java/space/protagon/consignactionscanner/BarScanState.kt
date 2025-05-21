@@ -1,6 +1,6 @@
-package space.protagon.consignationscanner
+package space.protagon.consignactionscanner
 
-import space.protagon.consignationscanner.viewmodel.Containers
+import space.protagon.consignactionscanner.viewmodel.Containers
 
 
 sealed interface BarScanState {

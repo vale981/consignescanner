@@ -1,4 +1,4 @@
-package space.protagon.consignationscanner.ui.theme
+package space.protagon.consignactionscanner.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

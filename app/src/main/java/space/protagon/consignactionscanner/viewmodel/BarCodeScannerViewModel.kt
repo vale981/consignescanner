@@ -1,4 +1,4 @@
-package space.protagon.consignationscanner.viewmodel
+package space.protagon.consignactionscanner.viewmodel
 
 import android.app.Application
 import android.util.Log
@@ -16,7 +16,7 @@ import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import space.protagon.consignationscanner.BarScanState
+import space.protagon.consignactionscanner.BarScanState
 import com.google.mlkit.vision.barcode.common.Barcode
 import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString
@@ -59,7 +59,7 @@ class BarCodeScannerViewModel(application: Application) : AndroidViewModel(appli
         "consigne_${context.packageManager.getPackageInfo(context.packageName, 0).versionName}}.db")
         .allowMainThreadQueries()
         .fallbackToDestructiveMigration(true)
-        .createFromAsset("consignation.db")
+        .createFromAsset("consignaction.db")
         .build()
 
     private val containerDao = database.containerDao()

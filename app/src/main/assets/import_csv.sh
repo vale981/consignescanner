@@ -1,12 +1,12 @@
 #! /usr/bin/env bash
 
-rm consignation.db
-sqlite3 consignation.db <<EOS
+rm -f consignaction.db
+sqlite3 consignaction.db <<EOS
 .mode csv
-.import consignation.csv containers
+.import consignaction.csv containers
 EOS
 
-sqlite-utils transform consignation.db containers \
+sqlite-utils transform consignaction.db containers \
              --pk 'Code Barre' \
              --not-null 'Code Barre' \
              --not-null 'Consigne'

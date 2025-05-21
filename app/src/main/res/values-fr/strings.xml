@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Scanneur Consignation Quebec</string>
+    <string name="app_name">Scanneur Consignaction Quebec</string>
     <string name="retrythis">Réessayer</string>
     <string name="value">Valeur</string>
     <string name="lasteModification">Dernière modification</string>

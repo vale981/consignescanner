@@ -30,9 +30,9 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
-import space.protagon.consignationscanner.model.BarCodeAnalyzer
-import space.protagon.consignationscanner.viewmodel.BarCodeScannerViewModel
-import space.protagon.consignationscanner.BarScanState
+import space.protagon.consignactionscanner.model.BarCodeAnalyzer
+import space.protagon.consignactionscanner.viewmodel.BarCodeScannerViewModel
+import space.protagon.consignactionscanner.BarScanState
 import com.google.common.util.concurrent.ListenableFuture
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -57,7 +57,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.compose.ui.unit.sp
-import space.protagon.consignationscanner.R
+import space.protagon.consignactionscanner.R
 
 @Composable
 fun BarcodeScannerScreen(

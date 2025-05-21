@@ -1,4 +1,4 @@
-# Consignation Quebec Scanner
+# Consignaction Quebec Scanner
 
 <img src="assets/icon.svg" align="right" style="height: 150px;">
 
